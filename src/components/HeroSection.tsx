@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Download, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -9,7 +10,7 @@ const HeroSection = () => {
           Evidence Analysis<br />
           <span className="text-muted-foreground">Grounded in Primary Sources</span>
         </h1>
-        
+
         <p className="prose-legal text-lg md:text-xl mx-auto mb-6 max-w-2xl">
           A disciplined workspace for legal professionals, expert witnesses, and investigators
           who work with large document sets. No AI. No automation.
@@ -21,13 +22,17 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button variant="cta" size="xl">
-            <Download className="w-4 h-4" />
-            Download Free Trial
+          <Button variant="cta" size="xl" asChild>
+            <Link to="/download">
+              <Download className="w-4 h-4" />
+              Download Free Trial
+            </Link>
           </Button>
-          <Button variant="subtle" size="xl">
-            <BookOpen className="w-4 h-4" />
-            Read the Philosophy
+          <Button variant="subtle" size="xl" asChild>
+            <a href="#philosophy">
+              <BookOpen className="w-4 h-4" />
+              Read the Philosophy
+            </a>
           </Button>
         </div>
 
