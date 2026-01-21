@@ -5,28 +5,33 @@ const WorkflowSection = () => {
     {
       icon: FileText,
       title: "Import your corpus",
-      description: "Load documents in any standard format. The original files remain untouched; all annotations exist in a separate layer."
+      description:
+        "Load documents in any standard format. The original files remain untouched; all annotations exist in a separate layer. If source files change, the system detects and surfaces those changes so the integrity of the record is never assumed.",
     },
     {
       icon: Highlighter,
       title: "Annotate with precision",
-      description: "Highlight passages, attach notes, apply tags. Every annotation records its exact source location—page, paragraph, character offset."
+      description:
+        "Highlight passages, attach notes, apply tags. Every annotation records its exact source location—page, paragraph, character offset.",
     },
     {
       icon: Link2,
       title: "Build cross-references",
-      description: "Link related passages across documents. Trace how evidence in one record connects to evidence in another."
+      description:
+        "Link related passages across documents. Trace how evidence in one record connects to evidence in another.",
     },
     {
       icon: Clock,
       title: "Construct chronologies",
-      description: "Extract dated events and arrange them in sequence. Each entry remains linked to its source document."
+      description:
+        "Extract dated events and arrange them in sequence. Each entry remains linked to its source document.",
     },
     {
       icon: FileCheck,
       title: "Export with provenance",
-      description: "Generate reports where every statement can be traced back to a specific location in a specific source document."
-    }
+      description:
+        "Generate reports where every statement can be traced back to a specific location in a specific source document. Supporting pages can be bundled as appendices with Bates-aware references, preserving a clear evidentiary chain suitable for external review.",
+    },
   ];
 
   return (
@@ -36,9 +41,13 @@ const WorkflowSection = () => {
           <h2 className="heading-section text-foreground mb-4">
             How Professionals Use It
           </h2>
+          <p className="italic text-muted-foreground mb-4">
+            Used by medical experts, litigators, and investigators who must explain—not just assert—how conclusions arise from the record.
+          </p>
           <p className="prose-legal">
-            Corpus Review supports a deliberate, document-grounded workflow. 
-            This is how evidence analysis proceeds when transparency is non-negotiable.
+            Corpus Review supports a deliberate, document-grounded workflow.
+            This is how evidence analysis proceeds when transparency is
+            non-negotiable.
           </p>
         </div>
 

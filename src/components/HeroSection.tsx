@@ -10,10 +10,14 @@ const HeroSection = () => {
           <span className="text-muted-foreground">Grounded in Primary Sources</span>
         </h1>
         
-        <p className="prose-legal text-lg md:text-xl mx-auto mb-10 max-w-2xl">
-          A disciplined workspace for legal professionals, expert witnesses, and investigators 
-          who work with large document sets. No AI. No automation. 
+        <p className="prose-legal text-lg md:text-xl mx-auto mb-6 max-w-2xl">
+          A disciplined workspace for legal professionals, expert witnesses, and investigators
+          who work with large document sets. No AI. No automation.
           Just transparent reasoning from assertion to source.
+        </p>
+
+        <p className="text-muted-foreground mx-auto mb-10 max-w-2xl">
+          Designed for early case assessment, expert review, and evidence-driven reporting—before positions harden and costs escalate.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
