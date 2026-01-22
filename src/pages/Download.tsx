@@ -24,9 +24,11 @@ const downloads = {
   windows: {
     name: "Windows",
     icon: Monitor,
-    available: false,
-    filename: null,
-    url: null,
+    available: true,
+    filename: `Corpus.Review_${LATEST_VERSION}_x64-setup.exe`,
+    url: `${GITHUB_RELEASES_URL}/download/v${LATEST_VERSION}/Corpus.Review_${LATEST_VERSION}_x64-setup.exe`,
+    msiFilename: `Corpus.Review_${LATEST_VERSION}_x64_en-US.msi`,
+    msiUrl: `${GITHUB_RELEASES_URL}/download/v${LATEST_VERSION}/Corpus.Review_${LATEST_VERSION}_x64_en-US.msi`,
     requirements: "Windows 10 or later (64-bit)",
   },
 };
@@ -88,11 +90,23 @@ const Download = () => {
                     </p>
                   </div>
                 </div>
-                <Button variant="subtle" size="lg" className="w-full" disabled>
-                  Coming Soon
+                <Button variant="cta" size="lg" className="w-full" asChild>
+                  <a href={downloads.windows.url}>
+                    <DownloadIcon className="w-4 h-4" />
+                    Download for Windows
+                  </a>
                 </Button>
                 <p className="text-xs text-muted-foreground mt-3 text-center">
-                  Windows release in development
+                  {downloads.windows.filename}
+                </p>
+                <p className="text-xs text-muted-foreground mt-2 text-center">
+                  Enterprise deployment?{" "}
+                  <a
+                    href={downloads.windows.msiUrl}
+                    className="underline hover:text-foreground transition-colors"
+                  >
+                    Download MSI
+                  </a>
                 </p>
               </div>
             </div>
