@@ -22,7 +22,16 @@ const Footer = () => {
           </nav>
           
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Corpus Review
+            © {new Date().getFullYear()} Corpus Review. A{" "}
+            <a
+              href="https://digital-extensions.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              Digital Extensions
+            </a>{" "}
+            product.
           </p>
         </div>
       </div>
