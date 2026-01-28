@@ -23,6 +23,12 @@ const Header = () => {
           >
             How It Works
           </a>
+          <Link
+            to="/documentation"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Documentation
+          </Link>
           <Button variant="cta" size="sm" asChild>
             <Link to="/download">Download Free Trial</Link>
           </Button>
