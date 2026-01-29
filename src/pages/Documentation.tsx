@@ -1,15 +1,27 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Play } from "lucide-react";
+import { Play, FileText } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-// Placeholder for video data - will be populated as videos are created
-// Each video links to YouTube, following the "Show Me, Don't Sell Me" principle
+// Video data structure - includes script and curation specs
 interface Video {
   id: string;
   title: string;
   description: string;
   youtubeId: string | null; // null until video is published
   duration: string;
+  script: {
+    narration: string;
+    curation: string;
+  } | null; // null until script is written
 }
 
 interface VideoSection {
@@ -19,6 +31,7 @@ interface VideoSection {
   videos: Video[];
 }
 
+// Script content will be populated as scripts are completed
 const sections: VideoSection[] = [
   {
     id: "core-challenges",
@@ -33,6 +46,7 @@ const sections: VideoSection[] = [
           "How to maintain focus and organization when evidence is scattered across hundreds of files.",
         youtubeId: null,
         duration: "1:30",
+        script: null, // Script 01 - pending
       },
       {
         id: "defensible-chronology",
@@ -41,6 +55,7 @@ const sections: VideoSection[] = [
           "Constructing timelines where every entry links back to its source.",
         youtubeId: null,
         duration: "2:00",
+        script: null, // Script 02 - pending
       },
       {
         id: "linking-conclusions",
@@ -49,6 +64,7 @@ const sections: VideoSection[] = [
           "Ensuring every assertion in your work product traces to specific evidence.",
         youtubeId: null,
         duration: "1:45",
+        script: null, // Script 03 - pending
       },
       {
         id: "refinding-evidence",
@@ -57,6 +73,7 @@ const sections: VideoSection[] = [
           "Returning to a case and locating previously identified evidence instantly.",
         youtubeId: null,
         duration: "1:30",
+        script: null, // Script 04 - pending
       },
     ],
   },
@@ -73,6 +90,7 @@ const sections: VideoSection[] = [
           "Categorizing and tagging while preserving the relationships between files.",
         youtubeId: null,
         duration: "2:00",
+        script: null, // Script 05 - pending
       },
       {
         id: "highlighting-tagging",
@@ -81,6 +99,7 @@ const sections: VideoSection[] = [
           "Using color-coded highlights and tags to mark evidence systematically.",
         youtubeId: null,
         duration: "1:45",
+        script: null, // Script 06 - pending
       },
       {
         id: "linking-notes",
@@ -89,6 +108,7 @@ const sections: VideoSection[] = [
           "Creating connections between your analysis and the underlying evidence.",
         youtubeId: null,
         duration: "2:00",
+        script: null, // Script 07 - pending
       },
       {
         id: "side-by-side",
@@ -97,6 +117,7 @@ const sections: VideoSection[] = [
           "Using document caddies to compare and cross-reference materials.",
         youtubeId: null,
         duration: "1:30",
+        script: null, // Script 08 - pending
       },
     ],
   },
@@ -113,6 +134,7 @@ const sections: VideoSection[] = [
           "Building a timeline from medical records for litigation support.",
         youtubeId: null,
         duration: "2:30",
+        script: null, // Script 09 - pending
       },
       {
         id: "experts-tracing",
@@ -121,6 +143,7 @@ const sections: VideoSection[] = [
           "Following a patient's treatment history through multiple facilities and providers.",
         youtubeId: null,
         duration: "2:00",
+        script: null, // Script 10 - pending
       },
       {
         id: "experts-opinions",
@@ -129,6 +152,7 @@ const sections: VideoSection[] = [
           "Ensuring expert conclusions are grounded in documented evidence.",
         youtubeId: null,
         duration: "1:45",
+        script: null, // Script 11 - pending
       },
       {
         id: "evolving-documents",
@@ -137,6 +161,7 @@ const sections: VideoSection[] = [
           "Handling late-produced documents without disrupting existing analysis.",
         youtubeId: null,
         duration: "1:30",
+        script: null, // Script 12 - pending
       },
     ],
   },
@@ -153,6 +178,7 @@ const sections: VideoSection[] = [
           "Creating work product where each claim connects directly to its source.",
         youtubeId: null,
         duration: "2:00",
+        script: null, // Script 13 - pending
       },
       {
         id: "revisiting-work",
@@ -161,58 +187,147 @@ const sections: VideoSection[] = [
           "Returning to a case and understanding your previous analysis immediately.",
         youtubeId: null,
         duration: "1:30",
+        script: null, // Script 14 - pending
       },
     ],
   },
 ];
 
+// Modal component for displaying script and curation specs
+const ScriptModal = ({
+  video,
+  open,
+  onOpenChange,
+}: {
+  video: Video;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) => {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl max-h-[85vh]">
+        <DialogHeader>
+          <DialogTitle className="text-xl">{video.title}</DialogTitle>
+          <p className="text-sm text-muted-foreground mt-1">
+            Duration: {video.duration} • Script Preview
+          </p>
+        </DialogHeader>
+
+        {video.script ? (
+          <Tabs defaultValue="narration" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="narration">Narration Script</TabsTrigger>
+              <TabsTrigger value="curation">Corpus Setup</TabsTrigger>
+            </TabsList>
+            <TabsContent value="narration">
+              <ScrollArea className="h-[60vh] w-full rounded-md border p-4">
+                <div className="prose prose-sm dark:prose-invert max-w-none">
+                  <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed">
+                    {video.script.narration}
+                  </pre>
+                </div>
+              </ScrollArea>
+            </TabsContent>
+            <TabsContent value="curation">
+              <ScrollArea className="h-[60vh] w-full rounded-md border p-4">
+                <div className="prose prose-sm dark:prose-invert max-w-none">
+                  <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed">
+                    {video.script.curation}
+                  </pre>
+                </div>
+              </ScrollArea>
+            </TabsContent>
+          </Tabs>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+            <FileText className="w-12 h-12 mb-4 opacity-50" />
+            <p className="text-lg font-medium">Script in development</p>
+            <p className="text-sm mt-1">
+              The narration script and corpus setup for this video are being
+              prepared.
+            </p>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 const VideoCard = ({ video }: { video: Video }) => {
-  const isAvailable = video.youtubeId !== null;
+  const [modalOpen, setModalOpen] = useState(false);
+  const hasVideo = video.youtubeId !== null;
+  const hasScript = video.script !== null;
   const youtubeUrl = video.youtubeId
     ? `https://www.youtube.com/watch?v=${video.youtubeId}`
     : null;
 
+  // If video exists, link to YouTube; otherwise show script modal
+  const handleClick = () => {
+    if (hasVideo && youtubeUrl) {
+      window.open(youtubeUrl, "_blank", "noopener,noreferrer");
+    } else {
+      setModalOpen(true);
+    }
+  };
+
   return (
-    <div className="border border-border rounded-lg p-5 bg-card hover:border-border/80 transition-colors">
-      {isAvailable ? (
-        <a
-          href={youtubeUrl!}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block group"
-        >
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 rounded bg-muted flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-              <Play className="w-4 h-4 text-muted-foreground group-hover:text-accent" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-foreground group-hover:text-accent transition-colors">
-                {video.title}
-              </h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                {video.description}
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                {video.duration}
-              </p>
-            </div>
-          </div>
-        </a>
-      ) : (
-        <div className="flex items-start gap-4 opacity-50">
-          <div className="flex-shrink-0 w-10 h-10 rounded bg-muted flex items-center justify-center">
-            <Play className="w-4 h-4 text-muted-foreground" />
+    <>
+      <div
+        onClick={handleClick}
+        className={`border border-border rounded-lg p-5 bg-card transition-colors cursor-pointer ${
+          hasVideo || hasScript
+            ? "hover:border-border/80"
+            : "hover:border-border/60"
+        }`}
+      >
+        <div className="flex items-start gap-4">
+          <div
+            className={`flex-shrink-0 w-10 h-10 rounded flex items-center justify-center transition-colors ${
+              hasVideo
+                ? "bg-muted group-hover:bg-accent/10"
+                : hasScript
+                  ? "bg-muted/50"
+                  : "bg-muted/30"
+            }`}
+          >
+            {hasVideo ? (
+              <Play className="w-4 h-4 text-muted-foreground" />
+            ) : (
+              <FileText
+                className={`w-4 h-4 ${hasScript ? "text-muted-foreground" : "text-muted-foreground/50"}`}
+              />
+            )}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-foreground">{video.title}</h3>
+            <h3
+              className={`font-medium transition-colors ${
+                hasVideo || hasScript
+                  ? "text-foreground hover:text-accent"
+                  : "text-foreground/70"
+              }`}
+            >
+              {video.title}
+            </h3>
             <p className="text-sm text-muted-foreground mt-1">
               {video.description}
             </p>
-            <p className="text-xs text-muted-foreground mt-2">Coming soon</p>
+            <p className="text-xs text-muted-foreground mt-2">
+              {hasVideo
+                ? video.duration
+                : hasScript
+                  ? "Script ready • Click to preview"
+                  : "Coming soon"}
+            </p>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+
+      <ScriptModal
+        video={video}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
+    </>
   );
 };
 
