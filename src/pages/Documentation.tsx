@@ -92,7 +92,7 @@ const sections: VideoSection[] = [
       },
       {
         id: "side-by-side",
-        title: "Seeing related evidence side-by-side",
+        title: "Viewing Related Material Side-by-Side",
         description:
           "Using document caddies to compare and cross-reference materials.",
         youtubeId: null,
@@ -102,7 +102,7 @@ const sections: VideoSection[] = [
   },
   {
     id: "use-cases",
-    title: "Common Use Cases",
+    title: "Example Applications",
     description:
       "Short examples of how different professionals apply Corpus Review to their work.",
     videos: [
