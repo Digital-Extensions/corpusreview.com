@@ -1,6 +1,13 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Play } from "lucide-react";
+import { Play, ExternalLink } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 // Placeholder for video data - will be populated as videos are created
 // Each video links to YouTube, following the "Show Me, Don't Sell Me" principle
@@ -31,7 +38,7 @@ const sections: VideoSection[] = [
         title: "Keeping track of what matters across thousands of pages",
         description:
           "How to maintain focus and organization when evidence is scattered across hundreds of files.",
-        youtubeId: null,
+        youtubeId: "aptzcFaCJKQ",
         duration: "1:30",
       },
       {
@@ -166,20 +173,21 @@ const sections: VideoSection[] = [
   },
 ];
 
-const VideoCard = ({ video }: { video: Video }) => {
+const VideoCard = ({
+  video,
+  onPlay,
+}: {
+  video: Video;
+  onPlay: (video: Video) => void;
+}) => {
   const isAvailable = video.youtubeId !== null;
-  const youtubeUrl = video.youtubeId
-    ? `https://www.youtube.com/watch?v=${video.youtubeId}`
-    : null;
 
   return (
     <div className="border border-border rounded-lg p-5 bg-card hover:border-border/80 transition-colors">
       {isAvailable ? (
-        <a
-          href={youtubeUrl!}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block group"
+        <button
+          onClick={() => onPlay(video)}
+          className="block group w-full text-left"
         >
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 w-10 h-10 rounded bg-muted flex items-center justify-center group-hover:bg-accent/10 transition-colors">
@@ -197,7 +205,7 @@ const VideoCard = ({ video }: { video: Video }) => {
               </p>
             </div>
           </div>
-        </a>
+        </button>
       ) : (
         <div className="flex items-start gap-4 opacity-50">
           <div className="flex-shrink-0 w-10 h-10 rounded bg-muted flex items-center justify-center">
@@ -217,6 +225,16 @@ const VideoCard = ({ video }: { video: Video }) => {
 };
 
 const Documentation = () => {
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+
+  const youtubeUrl = selectedVideo?.youtubeId
+    ? `https://www.youtube.com/watch?v=${selectedVideo.youtubeId}`
+    : null;
+
+  const embedUrl = selectedVideo?.youtubeId
+    ? `https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1`
+    : null;
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
@@ -251,7 +269,11 @@ const Documentation = () => {
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 {section.videos.map((video) => (
-                  <VideoCard key={video.id} video={video} />
+                  <VideoCard
+                    key={video.id}
+                    video={video}
+                    onPlay={setSelectedVideo}
+                  />
                 ))}
               </div>
             </div>
@@ -259,6 +281,45 @@ const Documentation = () => {
         ))}
       </main>
       <Footer />
+
+      {/* Video Modal */}
+      <Dialog
+        open={selectedVideo !== null}
+        onOpenChange={(open) => !open && setSelectedVideo(null)}
+      >
+        <DialogContent className="max-w-4xl p-0 overflow-hidden">
+          <DialogHeader className="p-4 pb-0">
+            <DialogTitle className="pr-8">{selectedVideo?.title}</DialogTitle>
+          </DialogHeader>
+          <div className="px-4 pb-2">
+            <p className="text-sm text-muted-foreground">
+              {selectedVideo?.description}
+            </p>
+          </div>
+          {embedUrl && (
+            <div className="aspect-video w-full">
+              <iframe
+                src={embedUrl}
+                title={selectedVideo?.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          )}
+          <div className="p-4 pt-2 flex justify-end">
+            <a
+              href={youtubeUrl!}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Watch on YouTube
+            </a>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
