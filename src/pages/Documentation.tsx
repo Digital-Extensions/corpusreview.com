@@ -161,14 +161,6 @@ const sections: VideoSection[] = [
         youtubeId: null,
         duration: "2:00",
       },
-      {
-        id: "revisiting-work",
-        title: "Revisiting work months later with full context intact",
-        description:
-          "Returning to a case and understanding your previous analysis immediately.",
-        youtubeId: null,
-        duration: "1:30",
-      },
     ],
   },
 ];
