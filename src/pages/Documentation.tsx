@@ -46,7 +46,7 @@ const sections: VideoSection[] = [
         title: "Building a defensible chronology from scattered documents",
         description:
           "Constructing timelines where every entry links back to its source.",
-        youtubeId: null,
+        youtubeId: "-Df8os_jQsA",
         duration: "2:00",
       },
       {
