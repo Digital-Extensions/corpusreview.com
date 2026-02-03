@@ -39,7 +39,7 @@ const sections: VideoSection[] = [
         description:
           "How to maintain focus and organization when evidence is scattered across hundreds of files.",
         youtubeId: "aptzcFaCJKQ",
-        duration: "1:30",
+        duration: "1:00",
       },
       {
         id: "defensible-chronology",
@@ -47,7 +47,7 @@ const sections: VideoSection[] = [
         description:
           "Constructing timelines where every entry links back to its source.",
         youtubeId: "-Df8os_jQsA",
-        duration: "2:00",
+        duration: "1:15",
       },
       {
         id: "linking-conclusions",
