@@ -148,6 +148,22 @@ const sections: VideoSection[] = [
     ],
   },
   {
+    id: "expert-workflows",
+    title: "How Experts Use Corpus Review",
+    description:
+      "Real workflows from professionals who review complex document sets.",
+    videos: [
+      {
+        id: "messy-medical-records",
+        title: "Turning Messy Medical Records Into Defensible Chronologies",
+        description:
+          "How an expert witness transforms disorganized medical records into a structured, source-linked chronology.",
+        youtubeId: "Mdk7ljVklfk",
+        duration: "3:00",
+      },
+    ],
+  },
+  {
     id: "reporting",
     title: "Producing Defensible Work Product",
     description:
