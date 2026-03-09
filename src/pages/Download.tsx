@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 
 const GITHUB_RELEASES_URL =
   "https://github.com/Digital-Extensions/corpus-review-releases/releases";
-const LATEST_VERSION = "1.2.0";
+const LATEST_VERSION = "1.6.0";
 
 const downloads = {
   mac: {
