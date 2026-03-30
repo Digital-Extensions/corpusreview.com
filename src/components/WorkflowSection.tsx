@@ -1,4 +1,5 @@
-import { FileText, Highlighter, Link2, Clock, FileCheck } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { FileText, Highlighter, Link2, Clock, FileCheck, X } from "lucide-react";
 
 /**
  * Screenshot sequence configuration.
@@ -74,31 +75,93 @@ const steps: WorkflowStep[] = [
   },
 ];
 
-const ScreenshotSequence = ({ screenshots }: { screenshots: Screenshot[] }) => {
+const ScreenshotLightbox = ({
+  screenshot,
+  onClose,
+}: {
+  screenshot: Screenshot;
+  onClose: () => void;
+}) => {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    },
+    [onClose],
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   return (
-    <div className="mt-6 flex flex-col gap-8">
-      {screenshots.map((screenshot) => (
-        <div key={screenshot.step} className="relative group">
-          {/* Step number badge */}
-          <div className="absolute -top-3 -left-2 z-10 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-semibold shadow-sm">
-            {screenshot.step}
-          </div>
-          {/* Screenshot image */}
-          <div className="rounded-lg border border-border overflow-hidden bg-card shadow-sm">
-            <img
-              src={screenshot.src}
-              alt={screenshot.label}
-              className="w-full h-auto"
-              loading="lazy"
-            />
-          </div>
-          {/* Label */}
-          <p className="mt-2 text-sm text-muted-foreground font-medium text-center">
-            {screenshot.label}
-          </p>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" onClick={onClose}>
+      <div
+        className="relative max-w-[90vw] w-fit rounded-lg overflow-hidden bg-accent shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-4 py-3">
+          <p className="text-sm font-medium text-accent-foreground">{screenshot.label}</p>
+          <button
+            onClick={onClose}
+            className="rounded-sm p-1 text-accent-foreground/80 hover:text-accent-foreground transition-colors"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </button>
         </div>
-      ))}
+        <div className="px-2 pb-2">
+          <img
+            src={screenshot.src}
+            alt={screenshot.label}
+            className="max-w-full h-auto rounded"
+          />
+        </div>
+      </div>
     </div>
+  );
+};
+
+const ScreenshotSequence = ({ screenshots }: { screenshots: Screenshot[] }) => {
+  const [selected, setSelected] = useState<Screenshot | null>(null);
+
+  return (
+    <>
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        {screenshots.map((screenshot) => (
+          <button
+            key={screenshot.step}
+            className="relative group text-left cursor-pointer"
+            onClick={() => setSelected(screenshot)}
+          >
+            {/* Step number badge */}
+            <div className="absolute -top-3 -left-2 z-10 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-semibold shadow-sm">
+              {screenshot.step}
+            </div>
+            {/* Screenshot image */}
+            <div className="rounded-lg border border-border overflow-hidden bg-card shadow-sm group-hover:border-foreground/20 transition-colors">
+              <img
+                src={screenshot.src}
+                alt={screenshot.label}
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+            {/* Label */}
+            <p className="mt-2 text-sm text-muted-foreground font-medium text-center">
+              {screenshot.label}
+            </p>
+          </button>
+        ))}
+      </div>
+
+      {selected && (
+        <ScreenshotLightbox
+          screenshot={selected}
+          onClose={() => setSelected(null)}
+        />
+      )}
+    </>
   );
 };
 
