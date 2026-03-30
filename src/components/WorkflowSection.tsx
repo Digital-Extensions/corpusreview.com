@@ -32,16 +32,27 @@ const steps: WorkflowStep[] = [
       "Load documents in any standard format. The original files remain untouched; all annotations exist in a separate layer. If source files change, the system detects and surfaces those changes so the integrity of the record is never assumed.",
   },
   {
-    icon: Highlighter,
-    title: "Annotate with precision",
+    icon: Clock,
+    title: "Construct chronologies",
     description:
-      "Highlight passages, attach notes, apply tags. Every annotation records its exact source location—page, paragraph, character offset.",
-    // Ready for screenshots — example structure:
-    // screenshots: [
-    //   { src: "/screenshots/annotate-1-highlight.png", label: "Highlight important text", step: 1 },
-    //   { src: "/screenshots/annotate-2-date.png", label: "Assign a date", step: 2 },
-    //   { src: "/screenshots/annotate-3-chronology.png", label: "Dated highlights display in Chronology", step: 3 },
-    // ],
+      "Extract dated events and arrange them in sequence. Each entry remains linked to its source document.",
+    screenshots: [
+      {
+        src: "/screenshots/annotate-1-highlight.png",
+        label: "Highlight key text",
+        step: 1,
+      },
+      {
+        src: "/screenshots/annotate-2-date.png",
+        label: "Assign a date",
+        step: 2,
+      },
+      {
+        src: "/screenshots/annotate-3-chronology.png",
+        label: "See it in Chronology",
+        step: 3,
+      },
+    ],
   },
   {
     icon: Link2,
@@ -50,10 +61,10 @@ const steps: WorkflowStep[] = [
       "Link related passages across documents. Trace how evidence in one record connects to evidence in another.",
   },
   {
-    icon: Clock,
-    title: "Construct chronologies",
+    icon: Highlighter,
+    title: "Annotate with precision",
     description:
-      "Extract dated events and arrange them in sequence. Each entry remains linked to its source document.",
+      "Highlight passages, attach notes, apply tags. Every annotation records its exact source location—page, paragraph, character offset.",
   },
   {
     icon: FileCheck,
@@ -65,7 +76,7 @@ const steps: WorkflowStep[] = [
 
 const ScreenshotSequence = ({ screenshots }: { screenshots: Screenshot[] }) => {
   return (
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="mt-6 flex flex-col gap-8">
       {screenshots.map((screenshot) => (
         <div key={screenshot.step} className="relative group">
           {/* Step number badge */}
@@ -100,7 +111,9 @@ const ScreenshotPlaceholder = () => {
             {step}
           </div>
           <div className="rounded-lg border border-border border-dashed bg-card/50 aspect-[4/3] flex items-center justify-center">
-            <span className="text-xs text-muted-foreground">Screenshot {step}</span>
+            <span className="text-xs text-muted-foreground">
+              Screenshot {step}
+            </span>
           </div>
         </div>
       ))}
@@ -110,8 +123,12 @@ const ScreenshotPlaceholder = () => {
 
 const WorkflowSection = () => {
   // Separate steps that have screenshots from those that don't
-  const stepsWithScreenshots = steps.filter((s) => s.screenshots && s.screenshots.length > 0);
-  const textOnlySteps = steps.filter((s) => !s.screenshots || s.screenshots.length === 0);
+  const stepsWithScreenshots = steps.filter(
+    (s) => s.screenshots && s.screenshots.length > 0,
+  );
+  const textOnlySteps = steps.filter(
+    (s) => !s.screenshots || s.screenshots.length === 0,
+  );
 
   return (
     <section id="workflow" className="py-16 md:py-24">
@@ -121,7 +138,8 @@ const WorkflowSection = () => {
             How Professionals Use It
           </h2>
           <p className="italic text-muted-foreground mb-4">
-            Used by medical experts, litigators, and investigators who must explain—not just assert—how conclusions arise from the record.
+            Used by medical experts, litigators, and investigators who must
+            explain—not just assert—how conclusions arise from the record.
           </p>
           <p className="prose-legal">
             Corpus Review supports a deliberate, document-grounded workflow.
@@ -130,9 +148,9 @@ const WorkflowSection = () => {
           </p>
         </div>
 
-        {/* Featured steps with screenshot sequences — full width */}
+        {/* Featured steps with screenshot sequences */}
         {stepsWithScreenshots.map((step, index) => (
-          <div key={`featured-${index}`} className="mb-16">
+          <div key={`featured-${index}`} className="container-narrow mx-0 mb-16">
             <div className="flex items-start gap-4 mb-2">
               <div className="flex-shrink-0 w-10 h-10 rounded bg-secondary flex items-center justify-center">
                 <step.icon className="w-5 h-5 text-foreground" />
