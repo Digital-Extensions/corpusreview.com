@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
-import { FileText, Highlighter, Link2, Clock, FileCheck, X } from "lucide-react";
+import { X } from "lucide-react";
 
 /**
  * Screenshot sequence configuration.
  *
  * To add real screenshots:
- * 1. Place images in /public/screenshots/ (e.g., highlight-1.png, highlight-2.png, highlight-3.png)
- * 2. Set the `screenshots` array on the relevant step with paths like "/screenshots/highlight-1.png"
+ * 1. Place images in /public/screenshots/ (e.g., volume-1.png, volume-2.png, volume-3.png)
+ * 2. Set the `screenshots` array on the relevant pain point with paths like "/screenshots/volume-1.png"
  * 3. Each screenshot entry has: src (image path), label (the annotation text), step (the step number)
  *
- * Steps without a `screenshots` array will render as text-only cards (the current style).
+ * Pain points without a `screenshots` array will render placeholder slots.
  */
 
 interface Screenshot {
@@ -18,25 +18,41 @@ interface Screenshot {
   step: number;
 }
 
-interface WorkflowStep {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
+interface PainPoint {
+  quote: string;
+  label: string;
   description: string;
   screenshots?: Screenshot[];
 }
 
-const steps: WorkflowStep[] = [
+const painPoints: PainPoint[] = [
   {
-    icon: FileText,
-    title: "Import your corpus",
+    quote:
+      "\u201cI got 4,000 pages of records yesterday and my deposition is in three weeks.\u201d",
+    label: "The volume problem.",
     description:
-      "Load documents in any standard format. The original files remain untouched; all annotations exist in a separate layer. If source files change, the system detects and surfaces those changes so the integrity of the record is never assumed.",
+      "MEWs receive massive, disorganized document dumps and have to absorb them under deadline pressure. Every hour spent just orienting to the corpus is an hour not spent on analysis. CR solves this with structured import, tagging, and search across the full corpus from day one.",
   },
   {
-    icon: Clock,
-    title: "Construct chronologies",
+    quote:
+      "\u201cI know I saw that lab result somewhere \u2014 but I can\u2019t find it now.\u201d",
+    label: "The retrieval problem.",
     description:
-      "Extract dated events and arrange them in sequence. Each entry remains linked to its source document.",
+      "During report writing or deposition prep, experts know they encountered a critical piece of evidence but can\u2019t relocate it. Flipping through PDFs or scrolling through binders is how details get lost. CR\u2019s highlights, annotations, and cross-references make every piece of evidence relocatable.",
+  },
+  {
+    quote:
+      "\u201cOpposing counsel asked me to show exactly where in the record I found that \u2014 and I fumbled.\u201d",
+    label: "The provenance problem.",
+    description:
+      "At deposition or trial, the expert\u2019s credibility depends on pointing to the precise source for every claim. Vague citations like \u201cit\u2019s in the hospital records\u201d get torn apart on cross. CR\u2019s page-level source tracking and Bates-aware exports mean every statement maps back to a specific location.",
+  },
+  {
+    quote:
+      "\u201cI spent an entire weekend just building the timeline by hand.\u201d",
+    label: "The chronology problem.",
+    description:
+      "Reconstructing what happened and when \u2014 across multiple providers, facilities, and record types \u2014 is grueling manual work. It\u2019s also where errors creep in. CR lets you assign dates to highlighted passages and generates the chronology automatically, with each entry linked to its source.",
     screenshots: [
       {
         src: "/screenshots/annotate-1-highlight.png",
@@ -56,22 +72,11 @@ const steps: WorkflowStep[] = [
     ],
   },
   {
-    icon: Link2,
-    title: "Build cross-references",
+    quote:
+      "\u201cThree months later, the records were supplemented and I had to figure out what changed.\u201d",
+    label: "The integrity problem.",
     description:
-      "Link related passages across documents. Trace how evidence in one record connects to evidence in another.",
-  },
-  {
-    icon: Highlighter,
-    title: "Annotate with precision",
-    description:
-      "Highlight passages, attach notes, apply tags. Every annotation records its exact source location—page, paragraph, character offset.",
-  },
-  {
-    icon: FileCheck,
-    title: "Export with provenance",
-    description:
-      "Generate reports where every statement can be traced back to a specific location in a specific source document. Supporting pages can be bundled as appendices with Bates-aware references, preserving a clear evidentiary chain suitable for external review.",
+      "Records get supplemented, corrected, or re-produced. The expert needs to know what\u2019s new, what\u2019s different, and whether prior conclusions still hold. CR detects source file changes and surfaces them so the record\u2019s integrity is never silently assumed.",
   },
 ];
 
@@ -185,69 +190,37 @@ const ScreenshotPlaceholder = () => {
 };
 
 const WorkflowSection = () => {
-  // Separate steps that have screenshots from those that don't
-  const stepsWithScreenshots = steps.filter(
-    (s) => s.screenshots && s.screenshots.length > 0,
-  );
-  const textOnlySteps = steps.filter(
-    (s) => !s.screenshots || s.screenshots.length === 0,
-  );
-
   return (
     <section id="workflow" className="py-16 md:py-24">
       <div className="container-wide">
-        <div className="container-narrow mx-0 mb-12">
+        <div className="container-narrow mx-0 mb-16">
           <h2 className="heading-section text-foreground mb-4">
-            How Professionals Use It
+            Problems Corpus Review Solves
           </h2>
-          <p className="italic text-muted-foreground mb-4">
-            Used by medical experts, litigators, and investigators who must
-            explain—not just assert—how conclusions arise from the record.
-          </p>
           <p className="prose-legal">
-            Corpus Review supports a deliberate, document-grounded workflow.
-            This is how evidence analysis proceeds when transparency is
-            non-negotiable.
+            These are real problems voiced by medical expert witnesses,
+            litigators, and investigators who work with large document sets
+            under adversarial conditions.
           </p>
         </div>
 
-        {/* Featured steps with screenshot sequences */}
-        {stepsWithScreenshots.map((step, index) => (
-          <div key={`featured-${index}`} className="container-narrow mx-0 mb-16">
-            <div className="flex items-start gap-4 mb-2">
-              <div className="flex-shrink-0 w-10 h-10 rounded bg-secondary flex items-center justify-center">
-                <step.icon className="w-5 h-5 text-foreground" />
-              </div>
-              <div>
-                <h3 className="font-serif text-lg font-medium text-foreground mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-prose">
-                  {step.description}
-                </p>
-              </div>
-            </div>
-            <ScreenshotSequence screenshots={step.screenshots!} />
-          </div>
-        ))}
-
-        {/* Remaining text-only steps — grid layout */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-          {textOnlySteps.map((step, index) => (
-            <div key={index} className="group">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded bg-secondary flex items-center justify-center">
-                  <step.icon className="w-5 h-5 text-foreground" />
-                </div>
-                <div>
-                  <h3 className="font-serif text-lg font-medium text-foreground mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
+        <div className="space-y-20">
+          {painPoints.map((point, index) => (
+            <div key={index} className="container-narrow mx-0">
+              <p className="font-serif text-xl md:text-2xl italic text-foreground mb-3">
+                {point.quote}
+              </p>
+              <h3 className="font-serif text-lg font-medium text-foreground mb-3">
+                {point.label}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-prose">
+                {point.description}
+              </p>
+              {point.screenshots ? (
+                <ScreenshotSequence screenshots={point.screenshots} />
+              ) : (
+                <ScreenshotPlaceholder />
+              )}
             </div>
           ))}
         </div>
