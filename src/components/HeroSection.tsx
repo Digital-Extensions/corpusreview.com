@@ -1,8 +1,19 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Download, Play, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const HERO_VIDEO_YOUTUBE_ID = "l8uRksAY6tI";
+
 const HeroSection = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <section className="py-20 md:py-28">
       <div className="container-narrow text-center">
@@ -28,11 +39,9 @@ const HeroSection = () => {
               Download Free Trial
             </Link>
           </Button>
-          <Button variant="subtle" size="xl" asChild>
-            <a href="#philosophy">
-              <BookOpen className="w-4 h-4" />
-              Read the Philosophy
-            </a>
+          <Button variant="subtle" size="xl" onClick={() => setVideoOpen(true)}>
+            <Play className="w-4 h-4" />
+            Watch the Demo
           </Button>
         </div>
 
@@ -40,6 +49,36 @@ const HeroSection = () => {
           Windows &amp; macOS · No account required
         </p>
       </div>
+
+      <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+        <DialogContent className="max-w-4xl p-0 overflow-hidden">
+          <DialogHeader className="p-4 pb-0">
+            <DialogTitle className="pr-8">Corpus Review Demo</DialogTitle>
+          </DialogHeader>
+          <div className="aspect-video w-full">
+            {videoOpen && (
+              <iframe
+                src={`https://www.youtube.com/embed/${HERO_VIDEO_YOUTUBE_ID}?autoplay=1`}
+                title="Corpus Review Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            )}
+          </div>
+          <div className="p-4 pt-2 flex justify-end">
+            <a
+              href={`https://www.youtube.com/watch?v=${HERO_VIDEO_YOUTUBE_ID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Watch on YouTube
+            </a>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
