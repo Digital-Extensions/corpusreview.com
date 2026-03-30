@@ -31,7 +31,7 @@ const painPoints: PainPoint[] = [
       "\u201cI got 4,000 pages of records yesterday and my deposition is in three weeks.\u201d",
     label: "The volume problem.",
     description:
-      "MEWs receive massive, disorganized document dumps and have to absorb them under deadline pressure. Every hour spent just orienting to the corpus is an hour not spent on analysis. CR solves this with structured import, tagging, and search across the full corpus from day one.",
+      "Expert witnesses receive massive, disorganized document dumps and have to absorb them under deadline pressure. Every hour spent just orienting to the corpus is an hour not spent on analysis. CR solves this with structured import, tagging, and search across the full corpus from day one.",
   },
   {
     quote:
