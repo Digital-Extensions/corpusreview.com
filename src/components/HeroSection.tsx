@@ -29,10 +29,10 @@ const HeroSection = () => {
             </Link>
           </Button>
           <Button variant="subtle" size="xl" asChild>
-            <Link to="/documentation">
+            <a href="https://youtu.be/l8uRksAY6tI" target="_blank" rel="noopener noreferrer">
               <Play className="w-4 h-4" />
               Watch the Demo
-            </Link>
+            </a>
           </Button>
         </div>
 
