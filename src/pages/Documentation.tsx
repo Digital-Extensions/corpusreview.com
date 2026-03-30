@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Play, ExternalLink } from "lucide-react";
+import { Play, ExternalLink, ChevronDown } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,231 +9,64 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-// Placeholder for video data - will be populated as videos are created
-// Each video links to YouTube, following the "Show Me, Don't Sell Me" principle
-interface Video {
-  id: string;
-  title: string;
-  description: string;
-  youtubeId: string | null; // null until video is published
-  duration: string;
-}
+/**
+ * ANCHOR video configuration.
+ *
+ * Replace PLACEHOLDER_VIDEO_ID with the actual YouTube ID once the video is published.
+ * The hero section will display a placeholder state until a valid ID is provided.
+ */
+const ANCHOR_VIDEO = {
+  id: "anchor",
+  title: "3,000 Pages. One Expert. Zero Room for Error.",
+  subtitle: "Every Page Matters",
+  description:
+    "See how Corpus Review takes a disorganized set of medical records and turns them into a defensible, source-linked chronology — from import to final report.",
+  youtubeId: null as string | null, // Replace with YouTube ID when ready, e.g., "dQw4w9WgXcQ"
+  duration: "2:55",
+};
 
-interface VideoSection {
-  id: string;
-  title: string;
-  description: string;
-  videos: Video[];
-}
-
-const sections: VideoSection[] = [
+/**
+ * Legacy quick clips — the original 3 published videos.
+ * Shown in a collapsible secondary section below the main video.
+ */
+const quickClips = [
   {
-    id: "core-challenges",
-    title: "Core Review Challenges",
+    id: "keeping-track",
+    title: "Keeping track of what matters across thousands of pages",
     description:
-      "Common problems faced by professionals working with large document sets.",
-    videos: [
-      {
-        id: "keeping-track",
-        title: "Keeping track of what matters across thousands of pages",
-        description:
-          "How to maintain focus and organization when evidence is scattered across hundreds of files.",
-        youtubeId: "aptzcFaCJKQ",
-        duration: "1:00",
-      },
-      {
-        id: "defensible-chronology",
-        title: "Building a defensible chronology from scattered documents",
-        description:
-          "Constructing timelines where every entry links back to its source.",
-        youtubeId: "-Df8os_jQsA",
-        duration: "1:15",
-      },
-      {
-        id: "linking-conclusions",
-        title: "Linking conclusions back to exact source pages",
-        description:
-          "Ensuring every assertion in your work product traces to specific evidence.",
-        youtubeId: null,
-        duration: "1:45",
-      },
-      {
-        id: "refinding-evidence",
-        title: "Re-finding critical evidence weeks or months later",
-        description:
-          "Returning to a case and locating previously identified evidence instantly.",
-        youtubeId: null,
-        duration: "1:30",
-      },
-    ],
+      "How to maintain focus and organization when evidence is scattered across hundreds of files.",
+    youtubeId: "aptzcFaCJKQ",
+    duration: "0:52",
   },
   {
-    id: "structured-review",
-    title: "How Corpus Review Supports Structured Review",
+    id: "defensible-chronology",
+    title: "Building a defensible chronology from scattered documents",
     description:
-      "Demonstrations of how Corpus Review approaches document organization and analysis.",
-    videos: [
-      {
-        id: "organizing-documents",
-        title: "Organizing documents without losing context",
-        description:
-          "Categorizing and tagging while preserving the relationships between files.",
-        youtubeId: null,
-        duration: "2:00",
-      },
-      {
-        id: "highlighting-tagging",
-        title: "Highlighting and tagging with intent",
-        description:
-          "Using color-coded highlights and tags to mark evidence systematically.",
-        youtubeId: null,
-        duration: "1:45",
-      },
-      {
-        id: "linking-notes",
-        title: "Linking notes, documents, and excerpts",
-        description:
-          "Creating connections between your analysis and the underlying evidence.",
-        youtubeId: null,
-        duration: "2:00",
-      },
-      {
-        id: "side-by-side",
-        title: "Viewing Related Material Side-by-Side",
-        description:
-          "Using document caddies to compare and cross-reference materials.",
-        youtubeId: null,
-        duration: "1:30",
-      },
-    ],
+      "Constructing timelines where every entry links back to its source.",
+    youtubeId: "-Df8os_jQsA",
+    duration: "1:17",
   },
   {
-    id: "use-cases",
-    title: "Example Applications",
+    id: "messy-medical-records",
+    title: "Turning Messy Medical Records Into Defensible Chronologies",
     description:
-      "Short examples of how different professionals apply Corpus Review to their work.",
-    videos: [
-      {
-        id: "lawyers-chronology",
-        title: "Preparing a chronology for pleadings or trial",
-        description:
-          "Building a timeline from medical records for litigation support.",
-        youtubeId: null,
-        duration: "2:30",
-      },
-      {
-        id: "experts-tracing",
-        title: "Tracing clinical events across records",
-        description:
-          "Following a patient's treatment history through multiple facilities and providers.",
-        youtubeId: null,
-        duration: "2:00",
-      },
-      {
-        id: "experts-opinions",
-        title: "Linking opinions to primary source material",
-        description:
-          "Ensuring expert conclusions are grounded in documented evidence.",
-        youtubeId: null,
-        duration: "1:45",
-      },
-      {
-        id: "evolving-documents",
-        title: "Managing evolving document sets",
-        description:
-          "Handling late-produced documents without disrupting existing analysis.",
-        youtubeId: null,
-        duration: "1:30",
-      },
-    ],
-  },
-  {
-    id: "expert-workflows",
-    title: "How Experts Use Corpus Review",
-    description:
-      "Real workflows from professionals who review complex document sets.",
-    videos: [
-      {
-        id: "messy-medical-records",
-        title: "Turning Messy Medical Records Into Defensible Chronologies",
-        description:
-          "How an expert witness transforms disorganized medical records into a structured, source-linked chronology.",
-        youtubeId: "Mdk7ljVklfk",
-        duration: "3:00",
-      },
-    ],
-  },
-  {
-    id: "reporting",
-    title: "Producing Defensible Work Product",
-    description:
-      "How Corpus Review supports the creation of traceable, evidence-grounded reports.",
-    videos: [
-      {
-        id: "linked-assertions",
-        title: "Writing reports that link every assertion to evidence",
-        description:
-          "Creating work product where each claim connects directly to its source.",
-        youtubeId: null,
-        duration: "2:00",
-      },
-    ],
+      "How an expert witness transforms disorganized medical records into a structured, source-linked chronology.",
+    youtubeId: "Mdk7ljVklfk",
+    duration: "3:06",
   },
 ];
 
-const VideoCard = ({
-  video,
-  onPlay,
-}: {
-  video: Video;
-  onPlay: (video: Video) => void;
-}) => {
-  const isAvailable = video.youtubeId !== null;
-
-  return (
-    <div className="border border-border rounded-lg p-5 bg-card hover:border-border/80 transition-colors">
-      {isAvailable ? (
-        <button
-          onClick={() => onPlay(video)}
-          className="block group w-full text-left"
-        >
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 rounded bg-muted flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-              <Play className="w-4 h-4 text-muted-foreground group-hover:text-accent" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-foreground group-hover:text-accent transition-colors">
-                {video.title}
-              </h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                {video.description}
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                {video.duration}
-              </p>
-            </div>
-          </div>
-        </button>
-      ) : (
-        <div className="flex items-start gap-4 opacity-50">
-          <div className="flex-shrink-0 w-10 h-10 rounded bg-muted flex items-center justify-center">
-            <Play className="w-4 h-4 text-muted-foreground" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-foreground">{video.title}</h3>
-            <p className="text-sm text-muted-foreground mt-1">
-              {video.description}
-            </p>
-            <p className="text-xs text-muted-foreground mt-2">Coming soon</p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+interface VideoInfo {
+  id: string;
+  title: string;
+  youtubeId: string | null;
+  description: string;
+  duration: string;
+}
 
 const Documentation = () => {
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<VideoInfo | null>(null);
+  const [clipsExpanded, setClipsExpanded] = useState(false);
 
   const youtubeUrl = selectedVideo?.youtubeId
     ? `https://www.youtube.com/watch?v=${selectedVideo.youtubeId}`
@@ -243,54 +76,134 @@ const Documentation = () => {
     ? `https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1`
     : null;
 
+  const anchorReady = ANCHOR_VIDEO.youtubeId !== null;
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1">
-        {/* Header Section */}
+        {/* Hero Section */}
         <section className="py-16 md:py-20 border-b border-border">
           <div className="container-narrow text-center">
+            <p className="text-sm font-medium tracking-wider uppercase text-muted-foreground mb-4">
+              {ANCHOR_VIDEO.subtitle}
+            </p>
             <h1 className="heading-section text-foreground mb-4">
-              See how Corpus Review helps professionals master large case
-              document sets.
+              {ANCHOR_VIDEO.title}
             </h1>
             <p className="prose-legal text-lg text-muted-foreground max-w-2xl mx-auto">
-              Short, task-focused demonstrations showing how Corpus Review
-              supports evidence-driven review and reporting.
+              {ANCHOR_VIDEO.description}
             </p>
           </div>
         </section>
 
-        {/* Video Sections */}
-        {sections.map((section) => (
-          <section
-            key={section.id}
-            id={section.id}
-            className="py-12 md:py-16 border-b border-border last:border-b-0"
-          >
-            <div className="container-narrow">
-              <div className="mb-8">
-                <h2 className="heading-section text-foreground mb-2">
-                  {section.title}
-                </h2>
-                <p className="prose-legal">{section.description}</p>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                {section.videos.map((video) => (
-                  <VideoCard
-                    key={video.id}
-                    video={video}
-                    onPlay={setSelectedVideo}
+        {/* Main Video Section */}
+        <section className="py-12 md:py-16 border-b border-border">
+          <div className="container-narrow">
+            {anchorReady ? (
+              /* Live video embed */
+              <div>
+                <div className="aspect-video w-full rounded-lg overflow-hidden border border-border shadow-sm">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${ANCHOR_VIDEO.youtubeId}`}
+                    title={ANCHOR_VIDEO.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
                   />
+                </div>
+                <div className="mt-4 flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">
+                    {ANCHOR_VIDEO.duration}
+                  </p>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${ANCHOR_VIDEO.youtubeId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Watch on YouTube
+                  </a>
+                </div>
+              </div>
+            ) : (
+              /* Placeholder state — video not yet published */
+              <div className="aspect-video w-full rounded-lg border border-border bg-card flex flex-col items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4">
+                  <Play className="w-6 h-6 text-muted-foreground ml-1" />
+                </div>
+                <p className="font-serif text-lg text-foreground mb-1">
+                  Coming soon
+                </p>
+                <p className="text-sm text-muted-foreground max-w-md text-center px-6">
+                  A full walkthrough of Corpus Review — from importing 3,200 pages of medical records
+                  to producing a defensible, source-linked report.
+                </p>
+                <p className="text-xs text-muted-foreground mt-3">
+                  {ANCHOR_VIDEO.duration} · Narrated walkthrough
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Quick Clips Section — collapsible */}
+        <section className="py-12 md:py-16">
+          <div className="container-narrow">
+            <button
+              onClick={() => setClipsExpanded(!clipsExpanded)}
+              className="w-full flex items-center justify-between group mb-6"
+            >
+              <div className="text-left">
+                <h2 className="heading-section text-foreground text-xl">
+                  Quick Clips
+                </h2>
+                <p className="prose-legal text-sm mt-1">
+                  Short workflow recordings showing specific features in action.
+                </p>
+              </div>
+              <ChevronDown
+                className={`w-5 h-5 text-muted-foreground transition-transform duration-200 flex-shrink-0 ml-4 ${
+                  clipsExpanded ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {clipsExpanded && (
+              <div className="grid gap-4 md:grid-cols-3">
+                {quickClips.map((clip) => (
+                  <button
+                    key={clip.id}
+                    onClick={() => setSelectedVideo(clip)}
+                    className="border border-border rounded-lg p-5 bg-card hover:border-border/80 transition-colors text-left group"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-9 h-9 rounded bg-muted flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                        <Play className="w-3.5 h-3.5 text-muted-foreground group-hover:text-accent" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-medium text-foreground group-hover:text-accent transition-colors leading-snug">
+                          {clip.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground mt-1.5 line-clamp-2">
+                          {clip.description}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          {clip.duration}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
                 ))}
               </div>
-            </div>
-          </section>
-        ))}
+            )}
+          </div>
+        </section>
       </main>
       <Footer />
 
-      {/* Video Modal */}
+      {/* Video Modal — for quick clips */}
       <Dialog
         open={selectedVideo !== null}
         onOpenChange={(open) => !open && setSelectedVideo(null)}
@@ -316,15 +229,17 @@ const Documentation = () => {
             </div>
           )}
           <div className="p-4 pt-2 flex justify-end">
-            <a
-              href={youtubeUrl!}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ExternalLink className="w-4 h-4" />
-              Watch on YouTube
-            </a>
+            {youtubeUrl && (
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Watch on YouTube
+              </a>
+            )}
           </div>
         </DialogContent>
       </Dialog>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen } from "lucide-react";
+import { Download, BookOpen, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
@@ -29,10 +29,10 @@ const HeroSection = () => {
             </Link>
           </Button>
           <Button variant="subtle" size="xl" asChild>
-            <a href="#philosophy">
-              <BookOpen className="w-4 h-4" />
-              Read the Philosophy
-            </a>
+            <Link to="/documentation">
+              <Play className="w-4 h-4" />
+              Watch the Demo
+            </Link>
           </Button>
         </div>
 
