@@ -24,10 +24,10 @@ const Header = () => {
             How It Works
           </a>
           <Link
-            to="/documentation"
+            to="/about"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            Documentation
+            About
           </Link>
           <Button variant="cta" size="sm" asChild>
             <Link to="/download">Download Free Trial</Link>

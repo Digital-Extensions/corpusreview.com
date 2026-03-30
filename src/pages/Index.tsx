@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import PhilosophySection from "@/components/PhilosophySection";
 import WorkflowSection from "@/components/WorkflowSection";
 import ContrastSection from "@/components/ContrastSection";
+import QuickClipsSection from "@/components/QuickClipsSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 
@@ -16,6 +17,7 @@ const Index = () => {
         <PhilosophySection />
         <WorkflowSection />
         <ContrastSection />
+        <QuickClipsSection />
         <CtaSection />
       </main>
       <Footer />

@@ -68,12 +68,10 @@ Corpus Review is a desktop software product for evidence analysis. It serves leg
 
 ## Page Structure
 
-The site follows a focused, single-purpose structure:
-1. Clear headline emphasizing evidence and transparency
-2. Subheadline explaining audience and purpose
-3. Philosophy section (concise, one paragraph)
-4. Workflow section (how professionals use it)
-5. Contrast section (what it is / what it is not)
-6. CTA to download
+The site has four pages:
+1. **Home** (`/`) — Product page with hero, philosophy, workflow, contrast, quick clips, and CTA
+2. **About** (`/about`) — Company information for Digital Extensions
+3. **Download** (`/download`) — Free trial download links
+4. **Contact** (`/contact`) — Contact form
 
-Future pages should maintain this restrained, substance-focused approach.
+The home page is the primary product page. Quick Clips (short video demonstrations) appear near the bottom, before the final CTA. Future pages should maintain this restrained, substance-focused approach.
