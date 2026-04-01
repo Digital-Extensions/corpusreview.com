@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
  * Screenshot sequence configuration.
@@ -81,17 +81,27 @@ const painPoints: PainPoint[] = [
 ];
 
 const ScreenshotLightbox = ({
-  screenshot,
+  screenshots,
+  currentIndex,
   onClose,
+  onNavigate,
 }: {
-  screenshot: Screenshot;
+  screenshots: Screenshot[];
+  currentIndex: number;
   onClose: () => void;
+  onNavigate: (index: number) => void;
 }) => {
+  const screenshot = screenshots[currentIndex];
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < screenshots.length - 1;
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && hasPrev) onNavigate(currentIndex - 1);
+      if (e.key === "ArrowRight" && hasNext) onNavigate(currentIndex + 1);
     },
-    [onClose],
+    [onClose, onNavigate, currentIndex, hasPrev, hasNext],
   );
 
   useEffect(() => {
@@ -100,27 +110,61 @@ const ScreenshotLightbox = ({
   }, [handleKeyDown]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div
         className="relative max-w-[90vw] w-fit rounded-lg overflow-hidden bg-accent shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Header */}
         <div className="flex items-center justify-between px-4 py-3">
           <p className="text-sm font-medium text-accent-foreground">{screenshot.label}</p>
-          <button
-            onClick={onClose}
-            className="rounded-sm p-1 text-accent-foreground/80 hover:text-accent-foreground transition-colors"
-          >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-accent-foreground/60">
+              {currentIndex + 1} / {screenshots.length}
+            </span>
+            <button
+              onClick={onClose}
+              className="rounded-sm p-1 text-accent-foreground/80 hover:text-accent-foreground transition-colors"
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </button>
+          </div>
         </div>
-        <div className="px-2 pb-2">
+
+        {/* Image area with nav buttons */}
+        <div className="relative flex items-center px-2 pb-2">
+          {/* Left nav */}
+          <div className="flex-none w-10 flex items-center justify-center">
+            {hasPrev && (
+              <button
+                onClick={() => onNavigate(currentIndex - 1)}
+                className="rounded-full p-1.5 text-accent-foreground/50 hover:text-accent-foreground hover:bg-accent-foreground/10 transition-colors"
+              >
+                <ChevronLeft className="h-6 w-6" />
+                <span className="sr-only">Previous</span>
+              </button>
+            )}
+          </div>
+
           <img
             src={screenshot.src}
             alt={screenshot.label}
             className="max-w-full h-auto rounded"
           />
+
+          {/* Right nav */}
+          <div className="flex-none w-10 flex items-center justify-center">
+            {hasNext && (
+              <button
+                onClick={() => onNavigate(currentIndex + 1)}
+                className="rounded-full p-1.5 text-accent-foreground/50 hover:text-accent-foreground hover:bg-accent-foreground/10 transition-colors"
+              >
+                <ChevronRight className="h-6 w-6" />
+                <span className="sr-only">Next</span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -128,16 +172,16 @@ const ScreenshotLightbox = ({
 };
 
 const ScreenshotSequence = ({ screenshots }: { screenshots: Screenshot[] }) => {
-  const [selected, setSelected] = useState<Screenshot | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   return (
     <>
       <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        {screenshots.map((screenshot) => (
+        {screenshots.map((screenshot, index) => (
           <button
             key={screenshot.step}
             className="relative group text-left cursor-pointer"
-            onClick={() => setSelected(screenshot)}
+            onClick={() => setSelectedIndex(index)}
           >
             {/* Step number badge */}
             <div className="absolute -top-3 -left-2 z-10 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-semibold shadow-sm">
@@ -160,10 +204,12 @@ const ScreenshotSequence = ({ screenshots }: { screenshots: Screenshot[] }) => {
         ))}
       </div>
 
-      {selected && (
+      {selectedIndex !== null && (
         <ScreenshotLightbox
-          screenshot={selected}
-          onClose={() => setSelected(null)}
+          screenshots={screenshots}
+          currentIndex={selectedIndex}
+          onClose={() => setSelectedIndex(null)}
+          onNavigate={setSelectedIndex}
         />
       )}
     </>
