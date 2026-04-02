@@ -110,21 +110,29 @@ const ScreenshotLightbox = ({
   }, [handleKeyDown]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      onClick={onClose}
+    >
       <div
-        className="relative max-w-[90vw] w-fit rounded-lg overflow-hidden bg-accent shadow-xl"
+        className="relative max-w-[90vw] w-fit rounded-lg overflow-hidden shadow-2xl ring-1 ring-black/20"
+        style={{
+          background: `linear-gradient(to bottom, hsl(0 32% 38%), hsl(0 35% 35%) 30%, hsl(0 35% 35%) 70%, hsl(0 38% 30%))`,
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3">
-          <p className="text-sm font-medium text-accent-foreground">{screenshot.label}</p>
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10">
+          <p className="font-serif text-base font-medium tracking-wide text-accent-foreground">
+            {screenshot.label}
+          </p>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-accent-foreground/60">
-              {currentIndex + 1} / {screenshots.length}
+            <span className="text-xs font-medium tracking-widest uppercase text-accent-foreground/50">
+              {currentIndex + 1} of {screenshots.length}
             </span>
             <button
               onClick={onClose}
-              className="rounded-sm p-1 text-accent-foreground/80 hover:text-accent-foreground transition-colors"
+              className="rounded p-1.5 text-accent-foreground/60 hover:text-accent-foreground hover:bg-white/10 transition-colors"
             >
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
@@ -133,13 +141,13 @@ const ScreenshotLightbox = ({
         </div>
 
         {/* Image area with nav buttons */}
-        <div className="relative flex items-center px-2 pb-2">
+        <div className="relative flex items-center px-3 pt-3 pb-4">
           {/* Left nav */}
           <div className="flex-none w-10 flex items-center justify-center">
             {hasPrev && (
               <button
                 onClick={() => onNavigate(currentIndex - 1)}
-                className="rounded-full p-1.5 text-accent-foreground/50 hover:text-accent-foreground hover:bg-accent-foreground/10 transition-colors"
+                className="rounded-full p-2 text-accent-foreground/40 hover:text-accent-foreground hover:bg-white/10 transition-colors"
               >
                 <ChevronLeft className="h-6 w-6" />
                 <span className="sr-only">Previous</span>
@@ -150,7 +158,7 @@ const ScreenshotLightbox = ({
           <img
             src={screenshot.src}
             alt={screenshot.label}
-            className="max-w-full h-auto rounded"
+            className="max-w-full h-auto rounded shadow-sm"
           />
 
           {/* Right nav */}
@@ -158,7 +166,7 @@ const ScreenshotLightbox = ({
             {hasNext && (
               <button
                 onClick={() => onNavigate(currentIndex + 1)}
-                className="rounded-full p-1.5 text-accent-foreground/50 hover:text-accent-foreground hover:bg-accent-foreground/10 transition-colors"
+                className="rounded-full p-2 text-accent-foreground/40 hover:text-accent-foreground hover:bg-white/10 transition-colors"
               >
                 <ChevronRight className="h-6 w-6" />
                 <span className="sr-only">Next</span>
