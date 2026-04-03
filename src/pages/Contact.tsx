@@ -4,14 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Download } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Please enter a valid email address").max(255, "Email must be less than 255 characters"),
-  organization: z.string().trim().max(200, "Organization must be less than 200 characters").optional(),
+  organization: z.string().trim().max(200, "Organisation must be less than 200 characters").optional(),
   message: z.string().trim().min(1, "Message is required").max(2000, "Message must be less than 2000 characters"),
 });
 
@@ -67,7 +69,7 @@ const Contact = () => {
       }
 
       toast({
-        title: "Message received",
+        title: "Message sent",
         description: "We will respond to your inquiry within two business days.",
       });
 
@@ -86,83 +88,169 @@ const Contact = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      
+
       <main className="flex-1">
         <section className="py-16 md:py-24">
           <div className="container-narrow">
-            <div className="max-w-xl">
-              <h1 className="font-serif text-3xl md:text-4xl font-medium text-foreground mb-4">
-                Contact
+            <div className="text-center mb-12">
+              <h1 className="heading-section text-foreground mb-4">
+                Get in Touch
               </h1>
-              <p className="text-muted-foreground leading-relaxed mb-12">
-                For licensing inquiries, technical questions, or to request a demonstration, 
-                please complete the form below. We respond to all inquiries within two business days.
+              <p className="prose-legal text-lg mx-auto max-w-xl">
+                Whether you are evaluating Corpus Review for a practice, a
+                chambers, or an investigation team, we are happy to answer
+                questions about the product, discuss licensing, or arrange a
+                demonstration.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="max-w-xl space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={errors.name ? "border-destructive" : ""}
-                />
-                {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name}</p>
-                )}
+            <div className="grid md:grid-cols-[1fr,320px] gap-10 lg:gap-14">
+              {/* Form card */}
+              <div className="border border-border rounded-lg p-8 bg-card">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-foreground">Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      placeholder="Your full name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={errors.name ? "border-destructive" : ""}
+                    />
+                    {errors.name && (
+                      <p className="text-sm text-destructive">{errors.name}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-foreground">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={errors.email ? "border-destructive" : ""}
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-destructive">{errors.email}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="organization" className="text-foreground">
+                      Firm or Organisation{" "}
+                      <span className="text-muted-foreground font-normal">(optional)</span>
+                    </Label>
+                    <Input
+                      id="organization"
+                      name="organization"
+                      value={formData.organization}
+                      onChange={handleChange}
+                      className={errors.organization ? "border-destructive" : ""}
+                    />
+                    {errors.organization && (
+                      <p className="text-sm text-destructive">{errors.organization}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-foreground">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      placeholder="Briefly describe your inquiry &mdash; e.g., licensing for a team, a question about a specific capability, or a request for a walkthrough."
+                      value={formData.message}
+                      onChange={handleChange}
+                      className={errors.message ? "border-destructive" : ""}
+                    />
+                    {errors.message && (
+                      <p className="text-sm text-destructive">{errors.message}</p>
+                    )}
+                  </div>
+
+                  <Button type="submit" variant="cta" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+                </form>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={errors.email ? "border-destructive" : ""}
-                />
-                {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email}</p>
-                )}
-              </div>
+              {/* Sidebar */}
+              <div className="space-y-8">
+                <div>
+                  <h2 className="font-serif text-base font-medium text-foreground mb-2">
+                    Response Time
+                  </h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    We respond to all inquiries within two business days.
+                  </p>
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="organization">Organization (optional)</Label>
-                <Input
-                  id="organization"
-                  name="organization"
-                  value={formData.organization}
-                  onChange={handleChange}
-                  className={errors.organization ? "border-destructive" : ""}
-                />
-                {errors.organization && (
-                  <p className="text-sm text-destructive">{errors.organization}</p>
-                )}
-              </div>
+                <div className="divider-subtle" />
 
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className={errors.message ? "border-destructive" : ""}
-                />
-                {errors.message && (
-                  <p className="text-sm text-destructive">{errors.message}</p>
-                )}
-              </div>
+                <div>
+                  <h2 className="font-serif text-base font-medium text-foreground mb-2">
+                    Licensing and Demonstrations
+                  </h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    For licensing inquiries, please include the number of seats
+                    and your deployment environment. Demonstration sessions are
+                    scheduled individually.
+                  </p>
+                </div>
 
-              <Button type="submit" variant="cta" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
+                <div className="divider-subtle" />
+
+                <div>
+                  <h2 className="font-serif text-base font-medium text-foreground mb-2">
+                    Download
+                  </h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                    Corpus Review is available as a free trial. No account
+                    required.
+                  </p>
+                  <Button variant="subtle" size="sm" asChild>
+                    <Link to="/download">
+                      <Download className="w-4 h-4" />
+                      Download Free Trial
+                    </Link>
+                  </Button>
+                </div>
+
+                <div className="divider-subtle" />
+
+                <div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    You can also reach us directly at{" "}
+                    <a
+                      href="mailto:info@digital-extensions.com"
+                      className="text-foreground underline underline-offset-4 hover:text-accent transition-colors"
+                    >
+                      info@digital-extensions.com
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 md:py-20 bg-card">
+          <div className="container-narrow text-center">
+            <p className="prose-legal mx-auto max-w-lg">
+              Corpus Review is built by Digital Extensions for professionals
+              who work with complex document sets. For product information,
+              visit the{" "}
+              <Link
+                to="/"
+                className="text-foreground underline underline-offset-4 hover:text-accent transition-colors"
+              >
+                home page
+              </Link>.
+            </p>
           </div>
         </section>
       </main>
