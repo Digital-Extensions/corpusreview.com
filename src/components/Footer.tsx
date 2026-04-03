@@ -18,6 +18,9 @@ const Footer = () => {
             <Link to="/contact" className="hover:text-foreground transition-colors">
               Contact
             </Link>
+            <Link to="/medical-expert-witness-document-review" className="hover:text-foreground transition-colors">
+              For Medical Expert Witnesses
+            </Link>
           </nav>
 
           <p className="text-sm text-muted-foreground">
