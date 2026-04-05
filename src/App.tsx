@@ -11,6 +11,8 @@ import Contact from "./pages/Contact";
 import Download from "./pages/Download";
 import About from "./pages/About";
 import MedicalExpertWitness from "./pages/MedicalExpertWitness";
+import BlogList from "./pages/BlogList";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const App = () => (
           <Route path="/download" element={<Download />} />
           <Route path="/about" element={<About />} />
           <Route path="/medical-expert-witness-document-review" element={<MedicalExpertWitness />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/documentation" element={<Navigate to="/" replace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

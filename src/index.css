@@ -110,6 +110,66 @@
   .divider-subtle {
     @apply h-px bg-border w-full;
   }
+
+  /* Blog post typography — maintains the restrained, professional tone */
+  .prose-blog {
+    @apply text-muted-foreground leading-relaxed max-w-prose;
+  }
+
+  .prose-blog p {
+    @apply mb-6;
+  }
+
+  .prose-blog h2 {
+    font-family: var(--font-serif);
+    @apply text-xl md:text-2xl font-medium text-foreground mt-12 mb-4;
+  }
+
+  .prose-blog h3 {
+    font-family: var(--font-serif);
+    @apply text-lg md:text-xl font-medium text-foreground mt-10 mb-3;
+  }
+
+  .prose-blog strong {
+    @apply text-foreground font-semibold;
+  }
+
+  .prose-blog em {
+    @apply italic;
+  }
+
+  .prose-blog ul,
+  .prose-blog ol {
+    @apply mb-6 ml-6;
+  }
+
+  .prose-blog ul {
+    @apply list-disc;
+  }
+
+  .prose-blog ol {
+    @apply list-decimal;
+  }
+
+  .prose-blog li {
+    @apply mb-2;
+  }
+
+  .prose-blog a {
+    @apply text-foreground underline underline-offset-4 hover:text-accent transition-colors;
+  }
+
+  .prose-blog blockquote {
+    @apply border-l-2 border-border pl-6 italic my-6;
+  }
+
+  .prose-blog hr {
+    @apply my-10 border-border;
+  }
+
+  .prose-blog code {
+    @apply text-sm bg-muted px-1.5 py-0.5 rounded;
+  }
 }
 
 @layer utilities {

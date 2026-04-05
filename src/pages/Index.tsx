@@ -6,10 +6,17 @@ import ContrastSection from "@/components/ContrastSection";
 import QuickClipsSection from "@/components/QuickClipsSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import {
+  softwareApplicationSchema,
+  webSiteSchema,
+} from "@/lib/structuredData";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd data={softwareApplicationSchema} />
+      <JsonLd data={webSiteSchema} />
       <Header />
       <main>
         <HeroSection />

@@ -18,6 +18,9 @@ const Footer = () => {
             <Link to="/contact" className="hover:text-foreground transition-colors">
               Contact
             </Link>
+            <Link to="/blog" className="hover:text-foreground transition-colors">
+              Blog
+            </Link>
             <Link to="/medical-expert-witness-document-review" className="hover:text-foreground transition-colors">
               For Medical Expert Witnesses
             </Link>

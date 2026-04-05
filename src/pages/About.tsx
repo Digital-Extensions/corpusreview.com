@@ -1,10 +1,13 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { organizationSchema } from "@/lib/structuredData";
 import { Link } from "react-router-dom";
 
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <JsonLd data={organizationSchema} />
       <Header />
 
       <main className="flex-1">
