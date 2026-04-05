@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import PhilosophySection from "@/components/PhilosophySection";
+import ToggleSection from "@/components/ToggleSection";
 import WorkflowSection from "@/components/WorkflowSection";
 import ContrastSection from "@/components/ContrastSection";
 import QuickClipsSection from "@/components/QuickClipsSection";
@@ -22,6 +23,8 @@ const Index = () => {
         <HeroSection />
         <div className="divider-subtle" />
         <PhilosophySection />
+        <div className="divider-subtle" />
+        <ToggleSection />
         <WorkflowSection />
         <ContrastSection />
         <QuickClipsSection />

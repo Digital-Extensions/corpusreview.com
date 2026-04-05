@@ -18,6 +18,12 @@ const Header = () => {
             Philosophy
           </a>
           <a
+            href="#the-toggle"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            The Toggle
+          </a>
+          <a
             href="#workflow"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
