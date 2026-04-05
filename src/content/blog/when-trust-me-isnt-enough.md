@@ -1,5 +1,5 @@
 ---
-title: "When \"Trust Me\" Isn't Enough: Why Expert Opinions Fail Without Provenance"
+title: "When 'Trust Me' Isn't Enough: Why Expert Opinions Fail Without Provenance"
 slug: when-trust-me-isnt-enough
 date: "2026-04-08"
 description: "Most expert witnesses are one aggressive cross-examination away from discovering that their workflow doesn't support the claims their reports make. The provenance gap is a tooling problem, not a competence problem."
