@@ -14,7 +14,9 @@
       "Read(//Users/kdm/.nvm/versions/node/**)",
       "Read(//opt/homebrew/Cellar/node/24.5.0/bin/**)",
       "Read(//usr/local/bin/**)",
-      "Bash(export PATH=\"/Users/kdm/.nvm/versions/node/v22.12.0/bin:/opt/homebrew/bin:$PATH\")"
+      "Bash(export PATH=\"/Users/kdm/.nvm/versions/node/v22.12.0/bin:/opt/homebrew/bin:$PATH\")",
+      "Bash(gh release list:*)",
+      "Bash(gh release view:*)"
     ]
   }
 }
