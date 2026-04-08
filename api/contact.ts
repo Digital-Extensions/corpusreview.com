@@ -28,7 +28,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const { error } = await resend.emails.send({
-      from: "Corpus Review <noreply@license.corpusreview.com>",
+      from: "Corpus Review <noreply@license.digital-extensions.com>",
       to: ["info@digital-extensions.com"],
       replyTo: email,
       subject: `Contact form: ${name}${organization ? ` (${organization})` : ""}`,
