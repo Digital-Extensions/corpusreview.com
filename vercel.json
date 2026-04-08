@@ -4,6 +4,7 @@
       "source": "/medical-expert-witness-document-review",
       "destination": "/api/og?path=/medical-expert-witness-document-review"
     },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/((?!api/).*)", "destination": "/" }
   ]
 }
