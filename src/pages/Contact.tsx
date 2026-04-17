@@ -98,10 +98,10 @@ const Contact = () => {
                 Get in Touch
               </h1>
               <p className="prose-legal text-lg mx-auto max-w-xl">
-                Whether you are evaluating Corpus Review for a practice, a
-                chambers, or an investigation team, we are happy to answer
-                questions about the product, discuss licensing, or arrange a
-                demonstration.
+                Whether you are evaluating Corpus Review as an individual expert,
+                for an expert witness agency, a chambers, or an investigation
+                team, we are happy to answer questions about the product,
+                discuss licensing, or arrange a demonstration.
               </p>
             </div>
 
@@ -242,15 +242,14 @@ const Contact = () => {
         <section className="py-16 md:py-20 bg-card">
           <div className="container-narrow text-center">
             <p className="prose-legal mx-auto max-w-lg">
-              Corpus Review is built by Digital Extensions for professionals
-              who work with complex document sets. For product information,
-              visit the{" "}
+              New to Corpus Review? Read the{" "}
               <Link
-                to="/"
+                to="/#philosophy"
                 className="text-foreground underline underline-offset-4 hover:text-accent transition-colors"
               >
-                home page
-              </Link>.
+                Philosophy of Evidence
+              </Link>{" "}
+              to understand the principles behind the software.
             </p>
           </div>
         </section>

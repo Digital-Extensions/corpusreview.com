@@ -18,7 +18,7 @@ const HeroSection = () => {
     <section className="py-20 md:py-28">
       <div className="container-narrow text-center">
         <h1 className="heading-display text-foreground mb-6">
-          Evidence Analysis<br />
+          A Workspace for Evidence,<br />
           <span className="text-muted-foreground">Grounded in Primary Sources</span>
         </h1>
 
@@ -29,7 +29,7 @@ const HeroSection = () => {
         </p>
 
         <p className="text-muted-foreground mx-auto mb-10 max-w-2xl">
-          Designed for early case assessment, expert review, and evidence-driven reporting—before positions harden and costs escalate.
+          Designed for early case assessment, expert review, and evidence-driven reporting.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -46,7 +46,7 @@ const HeroSection = () => {
         </div>
 
         <p className="text-sm text-muted-foreground mt-6">
-          Windows &amp; macOS · No account required
+          Windows &amp; macOS · Air-gapped · Local-first
         </p>
       </div>
 

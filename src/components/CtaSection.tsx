@@ -22,7 +22,7 @@ const CtaSection = () => {
         </Button>
 
         <p className="text-sm text-muted-foreground mt-6">
-          Available for Windows and macOS
+          No cloud. No account handoff. Just the download.
         </p>
       </div>
     </section>

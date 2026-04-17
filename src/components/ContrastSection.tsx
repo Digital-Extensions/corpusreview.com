@@ -5,14 +5,16 @@ const ContrastSection = () => {
     "A workspace for organizing and annotating documents",
     "A system for preserving chains of reasoning to sources",
     "A tool for highlights, tags, notes, and chronologies",
-    "Software that treats your judgment as irreplaceable"
+    "Software that treats your judgment as irreplaceable",
+    "Air-gapped and local-first — the corpus never leaves your machine"
   ];
 
   const isNotItems = [
     "An AI or automation platform",
     "A scoring, ranking, or prediction engine",
     "A tool that makes claims on your behalf",
-    "Software that prioritizes or filters without your direction"
+    "Software that prioritizes or filters without your direction",
+    "A cloud service that processes your records on someone else's infrastructure"
   ];
 
   return (

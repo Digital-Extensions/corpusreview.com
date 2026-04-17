@@ -31,28 +31,28 @@ const painPoints: PainPoint[] = [
       "\u201cI got 4,000 pages of records yesterday and my deposition is in three weeks.\u201d",
     label: "The volume problem.",
     description:
-      "Expert witnesses receive massive, disorganized document dumps and have to absorb them under deadline pressure. Every hour spent just orienting to the corpus is an hour not spent on analysis. CR solves this with structured import, tagging, and search across the full corpus from day one.",
+      "Expert witnesses receive massive, disorganised document dumps and must absorb them under deadline. Every hour spent orienting to the corpus is an hour not spent reasoning about it. In Corpus Review, the corpus is indexed, tagged, and searchable from the moment you point at the folder.",
   },
   {
     quote:
       "\u201cI know I saw that lab result somewhere \u2014 but I can\u2019t find it now.\u201d",
     label: "The retrieval problem.",
     description:
-      "During report writing or deposition prep, experts know they encountered a critical piece of evidence but can\u2019t relocate it. Flipping through PDFs or scrolling through binders is how details get lost. CR\u2019s highlights, annotations, and cross-references make every piece of evidence relocatable.",
+      "During report writing or deposition prep, experts know they encountered a critical piece of evidence but cannot relocate it. Flipping through PDFs or scrolling through binders is how details get lost. Highlights, annotations, and source-linking make every piece of evidence relocatable.",
   },
   {
     quote:
       "\u201cOpposing counsel asked me to show exactly where in the record I found that \u2014 and I fumbled.\u201d",
     label: "The provenance problem.",
     description:
-      "At deposition or trial, the expert\u2019s credibility depends on pointing to the precise source for every claim. Vague citations like \u201cit\u2019s in the hospital records\u201d get torn apart on cross. CR\u2019s page-level source tracking and Bates-aware exports mean every statement maps back to a specific location.",
+      "At deposition or trial, the expert\u2019s credibility depends on pointing to the precise source for every claim. Vague citations like \u201cit\u2019s in the hospital records\u201d get torn apart on cross. Page-level source tracking and Bates-aware exports mean every statement maps back to a specific location.",
   },
   {
     quote:
       "\u201cI spent an entire weekend just building the timeline by hand.\u201d",
     label: "The chronology problem.",
     description:
-      "Reconstructing what happened and when \u2014 across multiple providers, facilities, and record types \u2014 is grueling manual work. It\u2019s also where errors creep in. CR lets you assign dates to highlighted passages and generates the chronology automatically, with each entry linked to its source.",
+      "Reconstructing what happened and when \u2014 across multiple providers, facilities, and record types \u2014 is gruelling manual work. It is also where errors creep in. Assign dates to highlighted passages and the chronology builds itself, with each entry linked to its source.",
     screenshots: [
       {
         src: "/screenshots/annotate-1-highlight.png",
@@ -76,7 +76,7 @@ const painPoints: PainPoint[] = [
       "\u201cThree months later, the records were supplemented and I had to figure out what changed.\u201d",
     label: "The integrity problem.",
     description:
-      "Records get supplemented, corrected, or re-produced. The expert needs to know what\u2019s new, what\u2019s different, and whether prior conclusions still hold. CR detects source file changes and surfaces them so the record\u2019s integrity is never silently assumed.",
+      "Records get supplemented, corrected, or re-produced. The expert needs to know what is new, what is different, and whether prior conclusions still hold. Source file changes are detected and surfaced, so the record\u2019s integrity is never silently assumed.",
   },
 ];
 
@@ -249,7 +249,7 @@ const WorkflowSection = () => {
       <div className="container-wide">
         <div className="container-narrow mx-0 mb-16">
           <h2 className="heading-section text-foreground mb-4">
-            Problems Corpus Review Solves
+            What Experts Run Into
           </h2>
           <p className="prose-legal">
             These are real problems voiced by medical expert witnesses,

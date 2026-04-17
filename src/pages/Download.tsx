@@ -45,7 +45,7 @@ const Download = () => {
                 Download Corpus Review
               </h1>
               <p className="prose-legal text-lg text-muted-foreground max-w-xl mx-auto">
-                14-day free trial. Fully functional. No account required.
+                14-day free trial. Fully functional. Air-gapped from install.
               </p>
               <p className="text-sm text-muted-foreground mt-4">
                 Current version: {LATEST_VERSION}

@@ -23,7 +23,7 @@ const About = () => {
                   Digital Extensions builds software for professionals who work
                   with complex document sets. Our focus is on tools that support
                   structured reasoning, traceability, and disciplined
-                  organization of evidence.
+                  organisation of evidence.
                 </p>
 
                 <p>
@@ -37,8 +37,15 @@ const About = () => {
                 <p>
                   Corpus Review is our primary product, designed for legal
                   professionals, expert witnesses, and investigators who need to
-                  organize, annotate, and reason over large document corpora with
+                  organise, annotate, and reason over large document corpora with
                   precision.
+                </p>
+
+                <p>
+                  Our tools are deliberately non-AI. We do not score, summarise, or infer on our
+                  users' behalf. They are also air-gapped and local-first — no cloud upload, no
+                  hidden telemetry. The foundation of expert judgement should be evidence, not a
+                  black box.
                 </p>
 
                 <p>

@@ -27,7 +27,7 @@ const Header = () => {
             href="#workflow"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            How It Works
+            The Work
           </a>
           <Link
             to="/about"

@@ -34,7 +34,7 @@ const videos: Video[] = [
   },
   {
     id: "messy-medical-records",
-    title: "Turning Messy Medical Records Into Defensible Chronologies",
+    title: "Turning messy medical records into defensible chronologies",
     description:
       "How an expert witness transforms disorganized medical records into a structured, source-linked chronology.",
     youtubeId: "Mdk7ljVklfk",
@@ -91,7 +91,7 @@ const QuickClipsSection = () => {
         <div className="mb-10">
           <h2 className="heading-section text-foreground mb-3">Quick Clips</h2>
           <p className="prose-legal text-lg text-muted-foreground max-w-2xl">
-            Short, task-focused demonstrations. Each under three minutes.
+            Short, task-focused demonstrations. Each three minutes or less.
           </p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
